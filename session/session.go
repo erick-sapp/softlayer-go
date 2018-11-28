@@ -247,6 +247,11 @@ func (r *Session) DoRequest(service string, method string, args []interface{}, o
 	return r.TransportHandler.DoRequest(r, service, method, args, options, pResult)
 }
 
+func (r *Session) DoRequestRaw(sess *Session, path string, requestType string,
+	requestBody *bytes.Buffer, options *sl.Options) ([]byte, int, error) {
+	return sendHTTPRequest(sess, path, requestType, requestBody, options)
+}
+
 // SetTimeout creates a copy of the session and sets the passed timeout into it
 // before returning it.
 func (r *Session) SetTimeout(timeout time.Duration) *Session {
